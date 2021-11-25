@@ -65,7 +65,7 @@
   > 
   > 例如:
   > 
-  > title: `凯恩戈姆山国家公园的欧亚红松鼠，苏格兰高地`
+  > title: `Invergarry村庄附近的森林，苏格兰`
   > 
   > wallpaper: `/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_1920x1080.jpg&rf=LaDigue_1920x1080.jpg`
   > 
@@ -77,7 +77,7 @@
 
 #### 默认的是1080P:
 
-> title: `凯恩戈姆山国家公园的欧亚红松鼠，苏格兰高地`
+> title: `Invergarry村庄附近的森林，苏格兰`
 > 
 > wallpaper: `/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_1920x1080.jpg&rf=LaDigue_1920x1080.jpg`
 > 
