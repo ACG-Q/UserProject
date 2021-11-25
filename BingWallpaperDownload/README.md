@@ -5,6 +5,7 @@
 1. 通过 https://cn.bing.com/hp/api/model 必应壁纸API 获取壁纸列
 
   > 壁纸下载链接: JSONPath: MediaContents.ImageContent.Image.Wallpaper(或者 Url)
+  > 
   > 壁纸名称链接: JSONPath: MediaContents.ImageContent.Title
   > 
 
@@ -61,9 +62,13 @@
 2. 组合下载链接
 
   > 将 https://www.bing.com 和 获取到的壁纸下载链接 进行拼接即可
+  > 
   > 例如:
+  > 
   > title: `凯恩戈姆山国家公园的欧亚红松鼠，苏格兰高地`
+  > 
   > wallpaper: `/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_1920x1080.jpg&rf=LaDigue_1920x1080.jpg`
+  > 
   > download: `https://www.bing.com/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_1920x1080.jpg&rf=LaDigue_1920x1080.jpg`
   > 
 
@@ -73,7 +78,9 @@
 #### 默认的是1080P:
 
 > title: `凯恩戈姆山国家公园的欧亚红松鼠，苏格兰高地`
+> 
 > wallpaper: `/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_1920x1080.jpg&rf=LaDigue_1920x1080.jpg`
+> 
 > download: `https://www.bing.com/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_1920x1080.jpg&rf=LaDigue_1920x1080.jpg`
 > 
 
@@ -84,6 +91,7 @@
 #### 将 1920x1080 替换成 UHD, 就可以获取4K的壁纸下载链接[不是所有的图片都具有4K版图片]
 
 > download_1080P: `https://www.bing.com/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_1920x1080.jpg&rf=LaDigue_1920x1080.jpg`
+> 
 > download: `https://www.bing.com/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_UHD.jpg&rf=LaDigue_UHD.jpg`
 > 
 
