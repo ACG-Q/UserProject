@@ -75,10 +75,27 @@ title: `凯恩戈姆山国家公园的欧亚红松鼠，苏格兰高地`
 wallpaper: `/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_1920x1080.jpg&rf=LaDigue_1920x1080.jpg`
 download: `https://www.bing.com/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_1920x1080.jpg&rf=LaDigue_1920x1080.jpg`
 下载结果:
-![1920x1080_Invergarry村庄附近的森林，苏格兰.jpg 预览图](https://z3.ax1x.com/2021/11/25/oFNkGt.png)
+![1920x1080_Invergarry村庄附近的森林，苏格兰.jpg 预览图](./res/1080P预览图.webp)
 
 #### 将 1920x1080 替换成 UHD, 就可以获取4K的壁纸下载链接[不是所有的图片都具有4K版图片]
 download_1080P: `https://www.bing.com/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_1920x1080.jpg&rf=LaDigue_1920x1080.jpg`
 download: `https://www.bing.com/th?id=OHR.SquirrelsCairngorms_ZH-CN9369511507_UHD.jpg&rf=LaDigue_UHD.jpg`
 下载结果:
-![UHD_Invergarry村庄附近的森林，苏格兰.jpg 预览图](https://z3.ax1x.com/2021/11/25/oFNFPI.png)
+![UHD_Invergarry村庄附近的森林，苏格兰.jpg 预览图](./res/4K预览图.webp)
+
+### 使用方法
+
+1. 简单的使用方法
+
+> 直接双击运行，即可
+> 
+
+![](./res/BingWallpaperDownload使用.webp))
+
+2. 当作命令行程序使用
+
+```
+BingWallpaperDownload.exe 保存路径
+例如: BingWallpaperDownload.exe c:/Users/10436/Desktop/adajlksdj/asdasd
+```
+ps: 会自动创建不存在的文件夹
