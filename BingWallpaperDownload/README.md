@@ -79,7 +79,7 @@
 
 下载结果:
 
-![1920x1080_Invergarry村庄附近的森林，苏格兰.jpg 预览图](./res/1080P预览图.webp)
+![1920x1080_Invergarry村庄附近的森林，苏格兰.jpg 预览图](https://cdn.jsdelivr.net/gh/ACG-Q/UserProject@main/BingWallpaperDownload/res/1080P预览图.webp)
 
 #### 将 1920x1080 替换成 UHD, 就可以获取4K的壁纸下载链接[不是所有的图片都具有4K版图片]
 
@@ -89,7 +89,7 @@
 
 下载结果:
 
-![UHD_Invergarry村庄附近的森林，苏格兰.jpg 预览图](./res/4K预览图.webp)
+![UHD_Invergarry村庄附近的森林，苏格兰.jpg 预览图](https://cdn.jsdelivr.net/gh/ACG-Q/UserProject@main/BingWallpaperDownload/res/4K预览图.webp)
 
 ### 使用方法
 
@@ -98,7 +98,7 @@
 > 直接双击运行，即可
 > 
 
-![](./res/BingWallpaperDownload使用.webp))
+![](https://cdn.jsdelivr.net/gh/ACG-Q/UserProject@main/BingWallpaperDownload/res/BingWallpaperDownload使用.webp)
 
 2. 当作命令行程序使用
 
