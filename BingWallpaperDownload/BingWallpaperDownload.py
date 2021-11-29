@@ -1,3 +1,4 @@
+#-*-coding:utf-8 -*-
 import requests
 import os
 import json
@@ -33,8 +34,15 @@ class Utils:
     def saveFile(self, path, content, mode="w", encoding="utf8"):
         if not self.__isExists(path): self.create(path)
         try:
-            dirPath = os.path.dirname(path)
-            fileName = path.replace(dirPath, "") + f"_{''.join(random.sample('QAZwsxEDCrfvTGByhnUJMikOLpqazWSXedcRFVtgbYHNujmIKolP',5))}"
+            if self.__isExists(path):
+                dirPath = os.path.dirname(path)
+                fileName = path.replace(dirPath, "")
+                name, ext = fileName.split(".")
+                name = name + f"_{''.join(random.sample('QAZwsxEDCrfvTGByhnUJMikOLpqazWSXedcRFVtgbYHNujmIKolP',5))}"
+                filename = f"{name}.{ext}"
+                path = os.path.join(dirPath, fileName)
+                self.create(path)
+            
             if not path is None and ("b" in mode or "B" in mode):
                 with open(path, mode=mode) as f:
                     f.write(content)
@@ -44,13 +52,23 @@ class Utils:
                     f.write(content)
                 return True
         except:
-           return False
+            return False
 
     def montage(self, *args, **kwargs):
         return os.path.join(*args, **kwargs)
 
 utils = Utils()
-    
+
+def logo():
+    print("""  ____  _              __          __   _ _                             
+ |  _ \(_)             \ \        / /  | | |                            
+ | |_) |_ _ __   __ _   \ \  /\  / /_ _| | |_ __   __ _ _ __   ___ _ __ 
+ |  _ <| | '_ \ / _` |   \ \/  \/ / _` | | | '_ \ / _` | '_ \ / _ \ '__|
+ | |_) | | | | | (_| |    \  /\  / (_| | | | |_) | (_| | |_) |  __/ |   
+ |____/|_|_| |_|\__, |     \/  \/ \__,_|_|_| .__/ \__,_| .__/ \___|_|   
+                 __/ |                     | |         | |              
+                |___/                      |_|         |_|      By 六记""")
+
 def downloader(name, url, path):
     print(path)
     try:
@@ -110,12 +128,16 @@ def main(savePath):
             downloader(name, url, path)
     
 if __name__ == "__main__":
+    logo()
     args = sys.argv
     defualtPath = os.path.join(Picturespath, "下载")
     if len(args) > 1:
         savePath = args[1]
     else:
+        print(f"支持回复: \n\tA: {DesktopPath}[桌面路径]\n\tB: {Picturespath}[图片路径]")
         savePath = input(f"请输入保存路径(默认: {defualtPath}): ")
+        if savePath.lower() == "a": savePath = DesktopPath
+        if savePath.lower() == "b": savePath = Picturespath
         
     if savePath is None or savePath == "": savePath = defualtPath
     main(savePath)
