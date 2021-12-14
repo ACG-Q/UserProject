@@ -33,10 +33,10 @@ Wallhaven壁纸下载工具 1. 理论上支持Wallhaven.cc所有的链接 2. 不
 optional arguments:
   -h, --help            show this help message and exit
   -o OUTPUT, --output OUTPUT
-                        输出路径(默认: C:\Users\10436\Pictures\下载)
+                        输出路径(默认: C:\Users\当前的用户名\Pictures\下载)
                         支持回复: 
-                          A: C:\Users\10436\Desktop[桌面路径]
-                          B: C:\Users\10436\Pictures[图片路径]
+                          A: C:\Users\当前的用户名\Desktop[桌面路径]
+                          B: C:\Users\当前的用户名\Pictures[图片路径]
   -d DOWNLOAD, --download DOWNLOAD
                         下载链接
 ```
