@@ -9,6 +9,16 @@ import sys
 DesktopPath = os.path.join(os.path.expanduser('~'), "Desktop")
 Picturespath = os.path.join(os.path.expanduser('~'), "Pictures")
 
+__version__ = "1.1"
+__logo__ = """  ____  _              __          __   _ _                             
+ |  _ \(_)             \ \        / /  | | |                            
+ | |_) |_ _ __   __ _   \ \  /\  / /_ _| | |_ __   __ _ _ __   ___ _ __ 
+ |  _ <| | '_ \ / _` |   \ \/  \/ / _` | | | '_ \ / _` | '_ \ / _ \ '__|
+ | |_) | | | | | (_| |    \  /\  / (_| | | | |_) | (_| | |_) |  __/ |   
+ |____/|_|_| |_|\__, |     \/  \/ \__,_|_|_| .__/ \__,_| .__/ \___|_|   
+                 __/ |                     | |         | |              
+                |___/                      |_|         |_|      By 六记"""
+
 class Utils:
     def __isExists(self, path):
         return os.path.exists(path)
@@ -60,26 +70,20 @@ class Utils:
 utils = Utils()
 
 def logo():
-    print("""  ____  _              __          __   _ _                             
- |  _ \(_)             \ \        / /  | | |                            
- | |_) |_ _ __   __ _   \ \  /\  / /_ _| | |_ __   __ _ _ __   ___ _ __ 
- |  _ <| | '_ \ / _` |   \ \/  \/ / _` | | | '_ \ / _` | '_ \ / _ \ '__|
- | |_) | | | | | (_| |    \  /\  / (_| | | | |_) | (_| | |_) |  __/ |   
- |____/|_|_| |_|\__, |     \/  \/ \__,_|_|_| .__/ \__,_| .__/ \___|_|   
-                 __/ |                     | |         | |              
-                |___/                      |_|         |_|      By 六记""")
+    print(__logo__)
 
 def downloader(name, url, path):
     print(path)
     try:
+        print(f"[{chr(9660)}] 正在下载 {url} 目标: {path}")
         res = requests.get(url)
         res.raise_for_status()
         utils.saveFile(path, res.content, mode="wb")
-        print(f"图片 {name} 下载成功, 保存路径: {path}")
+        print(f"[{chr(10004)}] 图片 {name} 下载成功, 保存路径: {path}")
         return True
     except BaseException as e:
-        print(f"图片 {name} 下载失败")
-        print(f"下载失败原因: {e}")
+        print(f"[ERROR] 图片 {name} 下载失败")
+        print(f"[ERROR] 下载失败原因: {e}")
         return False
                 
 
@@ -128,17 +132,24 @@ def main(savePath):
             downloader(name, url, path)
     
 if __name__ == "__main__":
-    logo()
-    args = sys.argv
-    defualtPath = os.path.join(Picturespath, "下载")
-    if len(args) > 1:
-        savePath = args[1]
-    else:
-        print(f"支持回复: \n\tA: {DesktopPath}[桌面路径]\n\tB: {Picturespath}[图片路径]")
-        savePath = input(f"请输入保存路径(默认: {defualtPath}): ")
-        if savePath.lower() == "a": savePath = DesktopPath
-        if savePath.lower() == "b": savePath = Picturespath
-        
-    if savePath is None or savePath == "": savePath = defualtPath
-    main(savePath)
+    try:
+        logo()
+        print(f"Bing壁纸下载工具 v{__version__}")
+        args = sys.argv
+        defualtPath = os.path.join(Picturespath, "下载")
+        if len(args) > 1:
+            savePath = args[1]
+        else:
+            
+            print(f"支持回复: \n\tA: {DesktopPath}[桌面路径]\n\tB: {Picturespath}[图片路径]")
+            savePath = input(f"请输入保存路径(默认: {defualtPath}): ")
+            if savePath.lower() == "a": savePath = DesktopPath
+            if savePath.lower() == "b": savePath = Picturespath
+           
+            
+        if savePath is None or savePath == "": savePath = defualtPath
+        main(savePath)
+    except KeyboardInterrupt as er:
+        # ❌
+        print(f"\n[{chr(10060)}] 已退出")
     

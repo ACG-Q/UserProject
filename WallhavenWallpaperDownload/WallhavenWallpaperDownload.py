@@ -10,6 +10,16 @@ import time
 DesktopPath = os.path.join(os.path.expanduser('~'), "Desktop")
 Picturespath = os.path.join(os.path.expanduser('~'), "Pictures")
 
+__version__ = "1.1"
+__logo__ = """ __          __   _ _ _                            __          __   _ _                             
+ \ \        / /  | | | |                           \ \        / /  | | |                            
+  \ \  /\  / /_ _| | | |__   __ ___   _____ _ __    \ \  /\  / /_ _| | |_ __   __ _ _ __   ___ _ __ 
+   \ \/  \/ / _` | | | '_ \ / _` \ \ / / _ \ '_ \    \ \/  \/ / _` | | | '_ \ / _` | '_ \ / _ \ '__|
+    \  /\  / (_| | | | | | | (_| |\ V /  __/ | | |    \  /\  / (_| | | | |_) | (_| | |_) |  __/ |   
+     \/  \/ \__,_|_|_|_| |_|\__,_| \_/ \___|_| |_|     \/  \/ \__,_|_|_| .__/ \__,_| .__/ \___|_|   
+                                                                       | |         | |              
+                                                                       |_|         |_|       By 六记"""
+
 class Utils:
     def __isExists(self, path):
         return os.path.exists(path)
@@ -60,29 +70,23 @@ class Utils:
         return os.path.join(*args, **kwargs)
 
 utils = Utils()
-parser = argparse.ArgumentParser(description="Wallhaven壁纸下载工具 1. 理论上支持Wallhaven.cc所有的链接 2. 不支持多线程下载(防止过多请求)")
+parser = argparse.ArgumentParser(description=f"Wallhaven壁纸下载工具 v{__version__} 1. 理论上支持Wallhaven.cc所有的链接 2. 不支持多线程下载(防止过多请求)")
 
 def logo():
-    print(""" __          __   _ _ _                            __          __   _ _                             
- \ \        / /  | | | |                           \ \        / /  | | |                            
-  \ \  /\  / /_ _| | | |__   __ ___   _____ _ __    \ \  /\  / /_ _| | |_ __   __ _ _ __   ___ _ __ 
-   \ \/  \/ / _` | | | '_ \ / _` \ \ / / _ \ '_ \    \ \/  \/ / _` | | | '_ \ / _` | '_ \ / _ \ '__|
-    \  /\  / (_| | | | | | | (_| |\ V /  __/ | | |    \  /\  / (_| | | | |_) | (_| | |_) |  __/ |   
-     \/  \/ \__,_|_|_|_| |_|\__,_| \_/ \___|_| |_|     \/  \/ \__,_|_|_| .__/ \__,_| .__/ \___|_|   
-                                                                       | |         | |              
-                                                                       |_|         |_|       By 六记""")
+    print(__logo__)
 
 def downloader(name, url, path):
     # print(path)
     try:
+        print(f"[{chr(9660)}] 正在下载 {url} 目标: {path}")
         res = requests.get(url)
         res.raise_for_status()
         utils.saveFile(path, res.content, mode="wb")
-        print(f"图片 {name} 下载成功, 保存路径: {path}")
+        print(f"[{chr(10004)}] 图片 {name} 下载成功, 保存路径: {path}")
         return True
     except BaseException as e:
-        print(f"图片 {name} 下载失败")
-        print(f"下载失败原因: {e}")
+        print(f"[ERROR] 图片 {name} 下载失败")
+        print(f"[ERROR] 下载失败原因: {e}")
         return False
 
 def getImage(url):
@@ -134,52 +138,56 @@ def __isWallhaven(url):
         return False
 
 def main():
-    # 处理命令行
-    args = parser.parse_args()
-    if args.output:
-        if args.output.lower() == "a": 
-            savePath = DesktopPath
-        elif args.output.lower() == "b":
-            savePath = Picturespath
-        else:
-            savePath = args.output
-    if args.download:
-        if __isWallhaven(args.download):
-            url = args.download
-        else:
-            print("只支持来自于wallhaven.cc的链接")
-            sys.exit()
-        
-    print(f"保存路径: {savePath}\n下载链接: {url} {'是图片页面' if __isImagePage(url) else '是图片列表页面'}")
+    try:
+        # 处理命令行
+        args = parser.parse_args()
+        if args.output:
+            if args.output.lower() == "a": 
+                savePath = DesktopPath
+            elif args.output.lower() == "b":
+                savePath = Picturespath
+            else:
+                savePath = args.output
+        if args.download:
+            if __isWallhaven(args.download):
+                url = args.download
+            else:
+                print("[i] 只支持来自于wallhaven.cc的链接")
+                sys.exit()
+            
+        print(f"[i] 保存路径: {savePath}\n下载链接: {url} {'是图片页面' if __isImagePage(url) else '是图片列表页面'}")
 
-    # 获取信息
-    urls = []
-    if not __isImagePage(url):
-        info = getImages(url)
-        if info.get("Code"):
-            urls = info.get("Urls")
+        # 获取信息
+        urls = []
+        if not __isImagePage(url):
+            info = getImages(url)
+            if info.get("Code"):
+                urls = info.get("Urls")
+            else:
+                print(f"[ERROR] {url} 获取失败 -- {info.get('Msg')}")
+                sys.exit()
         else:
-            print(f"{url} 获取失败 -- {info.get('Msg')}")
-            sys.exit()
-    else:
-        urls = [url]
+            urls = [url]
 
-    # 获取图片链接
-    imgUrls = []
-    for i in range(len(urls)):
-        url = urls[i]
-        imgUrl = getImage(url)
-        if imgUrl.get("Code"):
-            imgUrls.append(imgUrl.get("Url"))
-        else:
-            print(f"{url} 获取图片链接失败 -- {imgUrl.get('Msg')}")
-        if i % 15: time.sleep(1)
+        # 获取图片链接
+        imgUrls = []
+        for i in range(len(urls)):
+            url = urls[i]
+            imgUrl = getImage(url)
+            if imgUrl.get("Code"):
+                imgUrls.append(imgUrl.get("Url"))
+            else:
+                print(f"[ERROR] {url} 获取图片链接失败 -- {imgUrl.get('Msg')}")
+            if i % 15: time.sleep(1)
 
-    # 下载链接
-    for url in imgUrls:
-        name = url.split("/")[-1]
-        path = os.path.join(savePath, name)
-        downloader(name, url, path)
+        # 下载链接
+        for url in imgUrls:
+            name = url.split("/")[-1]
+            path = os.path.join(savePath, name)
+            downloader(name, url, path)
+    except KeyboardInterrupt as er:
+        # ❌
+        print(f"[{chr(10060)}] 已退出")
         
 
 if __name__ == "__main__":
