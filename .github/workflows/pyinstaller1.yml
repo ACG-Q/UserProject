@@ -33,6 +33,9 @@ jobs:
           cd UnpkgDownload
           pyinstaller -F UnpkgDownload.py -i ../favicon.ico
           dir /a dist
+      - name: List dist directory contents
+        run: |
+          ls dist
 
       - name: Upload Package
         uses: actions/upload-artifact@v2
