@@ -7,7 +7,7 @@ import time
 import shutil
 import tempfile
 
-__version__ = "1.1"
+__version__ = "1.2"
 __url = "https://unpkg.com/"
 __logo__ = """   __  __            __            ____                      __                __
   / / / /___  ____  / /______ _   / __ \____ _      ______  / /___  ____ _____/ /
@@ -86,6 +86,7 @@ def getAllVersion(target, version, isDebug):
 def listFolderContents(info, splitChar="/"):
     files = []
     folders=[]
+    # print(f"{__url}/{info}{splitChar}")
     html = getResponse(f"{__url}/{info}{splitChar}")
     table = re.findall(r'<table(.*?)</table>', html, re.S)[0] 
     href = re.findall('href="(.*?)"', table)
@@ -99,7 +100,7 @@ def listFolderContents(info, splitChar="/"):
             files.extend(filesTemp)
         else:
             files.append(path)
-    
+
     return files, folders
 
 def download(url, targetPath):
@@ -135,7 +136,7 @@ def main():
 
         isDebug = args.debug
 
-        print(f"[i] target: {target}\n[i] version: {version}\n[i] debugging: {'Enable' if isDebug else 'Discard'}")
+        print(f"[i] target: {target}\n[i] version: {version}\n[i] debugging: {'Enable' if isDebug else 'Disable'}")
 
         # !!! 获取全部版本
         versions = getAllVersion(target, version, isDebug)
@@ -146,12 +147,13 @@ def main():
         else:
             version = versions[-1]
             print(f"[i] 未找到指定版本 --> {version}")
-        
+
         info = f"{target}@{version}"
         print(f"[i] 下载版本: {info}")
 
         files, folders = listFolderContents(info)
         targetPath = os.path.join(savePath, info)
+        __createFolder([info])
         __createFolder(folders, targetPath)
         for file in files:
             url = f"{__url}{info}{file}"
