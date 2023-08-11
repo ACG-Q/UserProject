@@ -1,4 +1,4 @@
-name: Python Package
+name: Pyinstaller UnpkgDownload
 
 on:
   workflow_dispatch:
@@ -32,6 +32,10 @@ jobs:
         run: |
           cd UnpkgDownload
           pyinstaller -F UnpkgDownload.py -i ../favicon.ico
+    
+      - name: List Current File Tree
+        run: |
+          tree
 
       - name: Upload Package
         uses: actions/upload-artifact@v2
