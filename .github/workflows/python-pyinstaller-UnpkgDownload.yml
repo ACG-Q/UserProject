@@ -1,0 +1,37 @@
+name: Python Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - { msystem: MINGW64, runner: windows-2022 }
+          - { msystem: MINGW32, runner: windows-2022 }
+
+    name: ${{ matrix.msystem }}
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7  # 根据你的项目要求选择合适的 Python 版本
+
+      - name: Build Package
+        run: |
+          cd UnpkgDownload
+          pyinstaller -F UnpkgDownload.py -i ../favicon.ico
+
+      - name: Upload Package
+        uses: actions/upload-artifact@v2
+        with:
+          name: python-package
+          path: dist/  # 上传打包后的文件夹路径，根据项目实际情况修改路径
