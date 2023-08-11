@@ -1,9 +1,7 @@
 name: Python Package
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,7 +21,12 @@ jobs:
       - name: Set Up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7  # 根据你的项目要求选择合适的 Python 版本
+          python-version: 3.7
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pyinstaller
 
       - name: Build Package
         run: |
